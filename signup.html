@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>obioma</title>
+    <link rel="stylesheet" type="text/css" href="/public/style.css">
+    <!-- <script src="/public/script.js"></script> -->
+</head>
+
+<body>
+    <form name="signup" method="POST" action="/submit">
+        <div class="container">
+            <h1>Register</h1>
+            <p>Please fill in this form to create an account.</p>
+            <hr>
+
+            <label for="fname">
+                <b>FirstName</b>
+            </label>
+            <input type="text" placeholder="Enter First name" name="fname" required>
+            <p id="fname"></p>
+
+            <label for="Lname">
+                <b>LastName</b>
+            </label>
+            <input type="text" placeholder="Enter Last name" name="lname" required>
+            <p id="lname"></p>
+            <label for="uname">
+                <b>UserName</b>
+            </label>
+            <input type="text" onchange="unamevalidate()" placeholder="Enter User name" name="uname" required>
+            <p id="uname"></p>
+            <label for="email">
+                <b>Email</b>
+            </label>
+            <input type="text" placeholder="Enter Email" name="email" required>
+            <p id="email"></p>
+            <label for="psw">
+                <b>Password</b>
+            </label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+            <p id="psw"></p>
+            <label for="psw2">
+                <b>Repeat Password</b>
+            </label>
+            <input type="password" onchange="psw2validate()" placeholder="Repeat Password" name="psw2" required>
+            <p id="psw2"></p>
+            <hr>
+            <p>By creating an account you agree to our
+                <a href="#">Terms & Privacy</a>.</p>
+
+            <button type="submit" id="submitt" class="registerbtn" disabled>Register</button>
+        </div>
+
+        <div class="container signin">
+            <p>Already have an account?
+                <a href="/login">Sign in</a>.</p>
+        </div>
+    </form>
+    <script>
+        function unamevalidate() {
+            var x = document.forms["signup"]["uname"].value
+            var xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                    if (this.responseText === "0") {
+
+                        document.getElementById("uname").innerHTML = "this username is in use"
+                    } if (this.responseText === "1") {
+                        document.getElementById("uname").innerHTML = ""
+                    }
+                }
+            }
+
+            xhttp.open("POST", "/unamevalidate", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("uname=" + x);
+            //console.log(x);
+        }
+
+        // function emailvalidate() {
+        //     var x = document.forms["signup"]["email"].value
+        //     var xhttp = new XMLHttpRequest();
+
+        //     xhttp.onreadystatechange = function () {
+        //         if (this.readyState == 4 && this.status == 200) {
+        //             console.log(this.responseText);
+        //            if(this.responseText==="0"){
+        //             document.getElementById("email").innerHTML="this email is in use"
+        //            }if(this.responseText==="1"){
+        //             document.getElementById("email").innerHTML=""
+        //            }
+        //         }
+        //     }
+
+        //     xhttp.open("POST", "/emailvalidate", true);
+        //     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        //     xhttp.send("email=" + x);
+        //     console.log(x);
+        // }
+
+        function psw2validate() {
+            //console.log(document.forms["signup"]["psw2"].value)
+            //console.log(document.forms["signup"]["psw"].value)
+            if (document.forms["signup"]["psw2"].value !== document.forms["signup"]["psw"].value) {
+                document.getElementById("psw2").innerHTML = "the passwords dont match"
+            } else {
+                document.getElementById("psw2").innerHTML = "";
+                finalvalidate();
+            }
+            //console.log(x);
+        }
+
+        function finalvalidate() {
+            console.log("gothere");
+            console.log("psw2 = " + document.getElementById("psw2").innerHTML)
+            if (document.getElementById("psw2").innerHTML === "" && document.getElementById("uname").innerHTML === "") {
+                console.log("here2");
+                document.getElementById("submitt").disabled = false;
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "hackatron",
+  "version": "1.0.0",
+  "description": "hackatron",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Obioma",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.4",
+    "couchbase": "^2.6.7",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "helmet": "^3.21.1",
+    "node-static": "^0.7.11",
+    "uuid": "^3.3.3"
+  }
+}
